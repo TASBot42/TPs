@@ -1,2 +1,5 @@
 Delivery/
 History/
+*.PrjPcbStructure
+__Previews
+*.DS_Store
