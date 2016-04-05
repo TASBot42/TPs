@@ -27,29 +27,36 @@ void    tp1(void)
 
 void    tp2(void)
 {
-    u16 freq = 31250 / 8, start = freq, was_press = 0;
+    bool was_press = 0;
     LATFbits.LATF1 = 0;
     TRISFbits.TRISF1 = 0;
-    T1CONbits.TCKPS = 3;
-    T1CONbits.ON = 1;
+    T2CONbits.TCKPS = 6;
+    T2CONbits.ON = 1;
+    PR2 = 15625;
     while (1) {
-        if (TMR1 >= freq) {
-            TMR1 = 0;
+        if (IFS0bits.T2IF) {
+            IFS0bits.T2IF = 0;
             LATFbits.LATF1 = !LATFbits.LATF1;
         }
         if (!PORTDbits.RD8) {
             if (!was_press) {
                 was_press = 1;
-                if (freq < start / 8)
-                    freq = start;
+                if (T2CONbits.TCKPS == 2)
+                    T2CONbits.TCKPS = 6;
                 else
-                    freq /= 2;
+                    T2CONbits.TCKPS--;
             }
         }
         else
             was_press = 0;
     }
 
+}
+
+void    tp3(void)
+{
+    while (1)
+        ;
 }
 
 int main(void)
