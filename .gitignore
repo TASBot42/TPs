@@ -3,3 +3,5 @@ History/
 *.PrjPcbStructure
 __Previews
 *.DS_Store
+Firmware/tasbot.X/build/
+Firmware/tasbot.X/dist/
